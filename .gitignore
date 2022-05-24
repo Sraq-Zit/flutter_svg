@@ -13,6 +13,7 @@ packages
 doc/api/
 coverage/
 .project
+./example/*
 
 # golden failure diffs
 test/failures
