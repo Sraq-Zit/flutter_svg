@@ -573,7 +573,7 @@ class DrawableDefinitionServer {
   static const String emptyUrlIri = 'url(#)';
 
   /// Attempt to lookup a [Drawable] by [id].
-  DrawableStyleable? getDrawable(String id, {bool nullOk = false}) {
+  DrawableStyleable? getDrawable(String id, {bool nullOk = true}) {
     assert(id != null); // ignore: unnecessary_null_comparison
     final DrawableStyleable? value = _drawables[id];
     if (value == null && nullOk != true) {

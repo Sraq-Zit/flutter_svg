@@ -208,8 +208,12 @@ class _Elements {
       )!,
     );
 
-    final DrawableStyleable ref =
-        parserState._definitions.getDrawable('url($xlinkHref)')!;
+    final DrawableStyleable? ref =
+        parserState._definitions.getDrawable('url($xlinkHref)');
+    
+    if (ref == null)
+      return null;
+
     final DrawableGroup group = DrawableGroup(
       parserState.attribute('id', def: ''),
       <Drawable>[ref.mergeStyle(style)],
@@ -882,7 +886,10 @@ class SvgParserState {
           continue;
         }
         final _ParseFunc? parseFunc = _svgElementParsers[event.name];
-        await parseFunc?.call(this, _warningsAsErrors);
+        if (parseFunc == null) {
+          continue;
+        }
+        await parseFunc.call(this, _warningsAsErrors);
         if (parseFunc == null) {
           if (!event.isSelfClosing) {
             _discardSubtree();
